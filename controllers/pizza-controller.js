@@ -19,6 +19,11 @@ const pizzaController = {
     //get a pizza by id
     getPizzaById({ params }, res) {
         Pizza.findOne({ _id: params.id })
+        .populate({
+            path: 'comments',
+            select: '-__v'
+        })
+        .select('-__v')
         .then(dbPizzaData => {
             //if no pizza 404
             if(!dbPizzaData) {
